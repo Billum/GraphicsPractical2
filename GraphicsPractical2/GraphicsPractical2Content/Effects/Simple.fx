@@ -30,7 +30,11 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
+<<<<<<< HEAD
 	float4 Normal;
+=======
+	float4 Normal : TEXTCOORD0;
+>>>>>>> bd28005264b20b249c39bc82607552be2901fbb4
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -38,7 +42,7 @@ struct VertexShaderOutput
 // Implement the Coloring using normals assignment here
 float4 NormalColor(float4 normal)
 {
-	return float4(_abs(normal.r), _abs(normal.g), _abs(normal.b), 1);
+	return float4(abs(normal.r), abs(normal.g), abs(normal.b), 1);
 }
 
 // Implement the Procedural texturing assignment here
@@ -58,15 +62,23 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	float4 worldPosition = mul(input.Position3D, World);
     float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
+	output.Normal		 = CalcNormal(input.Position3D);
 
 	return output;
 }
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	float4 color = NormalColor();
+	float4 color = NormalColor(input.Normal);
 
 	return color;
+}
+
+float4 CalcNormal(float4 input) : TEXTCOORD0
+{
+	float4 normal = normalize(cross(ddx(input), ddy(input)));
+
+	return normal;
 }
 
 technique Simple
