@@ -35,9 +35,9 @@ struct VertexShaderOutput
 //------------------------------------------ Functions ------------------------------------------
 
 // Implement the Coloring using normals assignment here
-float4 NormalColor(/* parameter(s) */)
+float4 NormalColor(float4 normal)
 {
-	return float4(1, 0, 0, 1);
+	return float4(_abs(normal.r), _abs(normal.g), _abs(normal.b), 1);
 }
 
 // Implement the Procedural texturing assignment here
