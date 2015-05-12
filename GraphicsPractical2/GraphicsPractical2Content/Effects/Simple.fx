@@ -17,7 +17,7 @@ float4x4 View, Projection, World;
 struct VertexShaderInput
 {
 	float4 Position3D : POSITION0;
-	float3 Normal = NORMAL0;
+	float3 Normal : NORMAL0;
 };
 
 // The output of the vertex shader. After being passed through the interpolator/rasterizer it is also 
@@ -31,7 +31,7 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
-	float3 Normal : TEXTCOORD0;
+	float3 Normal : TEXCOORD0;
 };
 
 //------------------------------------------ Functions ------------------------------------------
