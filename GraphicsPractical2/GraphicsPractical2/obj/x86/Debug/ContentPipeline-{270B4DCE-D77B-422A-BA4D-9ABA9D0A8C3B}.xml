@@ -7,8 +7,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Effects\Simple.xnb</Output>
-      <Time>2015-05-12T08:54:39+02:00</Time>
+      <Output>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Effects\Simple.xnb</Output>
+      <Time>0001-01-01T00:00:00</Time>
     </Item>
     <Item>
       <Source>Models\Teapot.fbx</Source>
@@ -16,12 +16,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Models\Teapot.xnb</Output>
-      <Time>2015-05-12T08:54:39+02:00</Time>
-      <Dependency>
-        <Key>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Key>
-        <Value>2015-05-12T09:14:26+02:00</Value>
-      </Dependency>
+      <Output>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Models\Teapot.xnb</Output>
+      <Time>0001-01-01T00:00:00</Time>
     </Item>
     <Item>
       <Source>Normal Maps\CobblestonesNormal.png</Source>
@@ -29,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Normal Maps\CobblestonesNormal.xnb</Output>
-      <Time>2015-05-12T08:54:39+02:00</Time>
+      <Output>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Normal Maps\CobblestonesNormal.xnb</Output>
+      <Time>0001-01-01T00:00:00</Time>
     </Item>
     <Item>
       <Source>Textures\CobblestonesDiffuse.png</Source>
@@ -38,27 +34,20 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb</Output>
-      <Time>2015-05-12T08:54:39+02:00</Time>
+      <Output>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb</Output>
+      <Time>0001-01-01T00:00:00</Time>
     </Item>
-    <Item>
-      <Source>Models\Teapot.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Output>
-      <Time>2015-05-12T08:54:39+02:00</Time>
-    </Item>
-    <BuildSuccessful>true</BuildSuccessful>
+    <BuildSuccessful>false</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{270B4DCE-D77B-422A-BA4D-9ABA9D0A8C3B}</ContentProjectGUID>
       <TargetPlatform>Windows</TargetPlatform>
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2Content\</RootDirectory>
-      <LoggerRootDirectory>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\</LoggerRootDirectory>
-      <IntermediateDirectory>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>\\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -87,7 +76,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2015-04-23T11:09:04.5380767+02:00</Value>
+        <Value>2015-04-21T15:39:06.2371734+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
