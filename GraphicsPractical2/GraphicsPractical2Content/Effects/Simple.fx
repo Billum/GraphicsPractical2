@@ -30,11 +30,7 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
-<<<<<<< HEAD
-	float4 Normal;
-=======
 	float4 Normal : TEXTCOORD0;
->>>>>>> bd28005264b20b249c39bc82607552be2901fbb4
 };
 
 //------------------------------------------ Functions ------------------------------------------
