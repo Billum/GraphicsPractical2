@@ -30,6 +30,7 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
+	float4 Normal : NORMAL0;
 };
 
 //------------------------------------------ Functions ------------------------------------------
