@@ -114,7 +114,7 @@ namespace GraphicsPractical2
         protected override void Draw(GameTime gameTime)
         {
             // Clear the screen in a predetermined color and clear the depth buffer
-            this.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DeepSkyBlue, 1.0f, 0);
+            this.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.White, 1.0f, 0);
             
             // Get the model's only mesh
             ModelMesh mesh = this.model.Meshes[0];
