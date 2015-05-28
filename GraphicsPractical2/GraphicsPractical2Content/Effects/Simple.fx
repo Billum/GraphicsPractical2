@@ -46,13 +46,13 @@ float4 NormalColor(float3 normal)
 // Implement the Procedural texturing assignment here
 float4 ProceduralColor(float3 normal, float4 schaak)
 {
-	int x = (int)((schaak.x * 6)) + 20;
-	int y = (int)((schaak.y * 6)) + 20;
+	int x = (int)((schaak.x + 21) * 5);
+	int y = (int)((schaak.y + 21) * 5);
 	if ((x % 2 + y % 2) % 2 > 0) {
-		return float4(0, 1, 0, 1);
+		return NormalColor(normal);
 	}
 	else {
-		return float4(0, 0, 1, 1);
+		return NormalColor(-1 * normal);
 	}
 }
 
