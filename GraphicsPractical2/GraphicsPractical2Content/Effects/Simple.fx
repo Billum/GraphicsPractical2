@@ -32,6 +32,7 @@ struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
 	float3 Normal : TEXCOORD0;
+	float4 Schaak : TEXCOORD1;
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -43,9 +44,16 @@ float4 NormalColor(float3 normal)
 }
 
 // Implement the Procedural texturing assignment here
-float4 ProceduralColor(/* parameter(s) */)
+float4 ProceduralColor(float3 normal, float4 schaak)
 {
-	return float4(0, 0, 0, 1);
+	int x = (int)((schaak.x * 6)) + 20;
+	int y = (int)((schaak.y * 6)) + 20;
+	if ((x % 2 + y % 2) % 2 > 0) {
+		return float4(0, 1, 0, 1);
+	}
+	else {
+		return float4(0, 0, 1, 1);
+	}
 }
 
 
@@ -60,14 +68,15 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	float4 worldPosition = mul(input.Position3D, World);
     float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
-	output.Normal		 = input.Normal;
+	output.Normal	 = input.Normal;
+	output.Schaak = input.Position3D;
 
 	return output;
 }
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	float4 color = NormalColor(input.Normal);
+	float4 color = ProceduralColor(input.Normal, input.Schaak);
 
 	return color;
 }
