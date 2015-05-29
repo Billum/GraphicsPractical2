@@ -13,6 +13,7 @@ float3 Camera;
 // Material parameters
 float4 AmbientColor;
 float AmbientIntensity;
+float4 DiffuseColor;
 float3 LightSourcePosition;
 float4 SpecularColor;
 float SpecularIntensity;
@@ -42,8 +43,7 @@ struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
 	float3 Normal : TEXCOORD0;
-	float4 Schaak : TEXCOORD1;
-	float3 WorldPosition : TEXCOORD2;
+	float4 Position3D : TEXCOORD1;
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -67,33 +67,34 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 	}
 }
 
-float4 DiffuseColor(float3 normal)
+float4 Diffusement(float3 normal, float3 pos3d)
 {
-	float3 direction = float3(1, 1, 1);
-	direction = normalize(direction);
-	float dotn = dot(normal, direction);
-	if (dotn < 0) {
-		dotn = 0;
+	float3 lightDirection = normalize(LightSourcePosition - pos3d);
+
+	float dotN = dot (normal, lightDirection);
+	if (dotN < 0) {
+		dotN = 0;
 	}
-	dotn = (dotn + 0.1) / 1.1;
-	return dotn * float4(1, 0, 0, 1);
+
+	float intensity = saturate (dotN);
+	return intensity * DiffuseColor;
 }
 
-float4 PhongShadingColor(float3 normal, float3 worldPosition)
+float4 Specularization(float3 normal, float3 pos3d)
 {
-	float3 lightDirection = normalize (worldPosition - LightSourcePosition);
+	float3 lightDirection = LightSourcePosition - pos3d;
+	float3 half = normalize (lightDirection + normalize(Camera - pos3d));
 
-	float4 diffusedColor = saturate (dot (normal, -lightDirection));
-	float3 halfAngleMod =
-		normalize (normalize (Camera - worldPosition) - lightDirection);
+	float intensity = pow (saturate (dot (normal, half)), SpecularPower);
+	return intensity * SpecularColor;
+}
 
-	float specularLighting = pow (saturate (dot (halfAngleMod, normal)), SpecularPower);
-
-	return float4 (
-		   saturate ( (AmbientColor
-				    + diffusedColor
-				    + (SpecularColor * SpecularIntensity * specularLighting))
-				    ));
+float4 PhongShadingColor(float3 normal, float3 pos3d)
+{
+	return saturate (  (AmbientColor * AmbientIntensity) // Ambient part
+				     + Diffusement(normal, pos3d)		 // Diffusion
+				     + Specularization(normal, pos3d)	 // Specular part
+				    );
 }
 
 //---------------------------------------- Technique: Simple ----------------------------------------
@@ -108,18 +109,23 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
     float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
 	output.Normal	 = input.Normal;
-	output.Schaak = input.Position3D;
-	output.WorldPosition = worldPosition;
+	output.Position3D = input.Position3D;
 
 	return output;
 }
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	//float4 color = ProceduralColor(input.Normal, input.Schaak);
+	//float4 color = ProceduralColor(input.Normal, input.Position3D);
 	//float4 color = NormalColor(input.Normal);
-	//float4 color = DiffuseColor(input.Normal);
-	float4 color = PhongShadingColor(input.Normal, input.WorldPosition);
+
+	//float4 color = Diffusement(input.Normal, input.Position3D);
+
+	//float4 color = ( (AmbientColor * AmbientIntensity)
+	//				 + Diffusement(input.Normal, input.Position3D)
+	//			     );
+
+	float4 color = PhongShadingColor(input.Normal, input.Position3D);
 
 	return color;
 }

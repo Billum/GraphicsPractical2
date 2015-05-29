@@ -43,7 +43,7 @@ namespace GraphicsPractical2
         {
             effect.Parameters["AmbientColor"].SetValue(this.AmbientColor.ToVector4());
             effect.Parameters["AmbientIntensity"].SetValue(this.AmbientIntensity);
-            //effect.Parameters["DiffuseColor"].SetValue(this.DiffuseColor.ToVector4());
+            effect.Parameters["DiffuseColor"].SetValue(this.DiffuseColor.ToVector4());
             //effect.Parameters["DiffuseTexture"].SetValue(this.DiffuseTexture);
             //effect.Parameters["NormalMap"].SetValue(this.NormalMap);
             //effect.Parameters["DisplacementFactor"].SetValue(this.DisplacementFactor);

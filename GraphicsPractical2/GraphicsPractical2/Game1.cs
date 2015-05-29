@@ -59,9 +59,10 @@ namespace GraphicsPractical2
             this.modelMaterial = new Material();
             modelMaterial.AmbientColor = Color.Red;
             modelMaterial.AmbientIntensity = 0.2f;
+            modelMaterial.DiffuseColor = Color.Red;
             modelMaterial.SpecularColor = Color.White;
-            modelMaterial.SpecularIntensity = 25f;
-            modelMaterial.SpecularPower = 2f;
+            modelMaterial.SpecularIntensity = 2f;
+            modelMaterial.SpecularPower = 25f;
 
             this.IsMouseVisible = true;
 
