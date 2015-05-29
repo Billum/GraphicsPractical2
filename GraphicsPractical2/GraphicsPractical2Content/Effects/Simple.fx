@@ -56,6 +56,17 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 	}
 }
 
+float4 DiffuseColor(float3 normal)
+{
+	float3 direction = float3(1, 1, 1);
+	direction = normalize(direction);
+	float dotn = dot(normal, direction);
+	if (dotn < 0) {
+		dotn = 0;
+	}
+	return dotn * float4(1, 0, 0, 1);
+}
+
 
 //---------------------------------------- Technique: Simple ----------------------------------------
 
@@ -76,8 +87,9 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	float4 color = ProceduralColor(input.Normal, input.Schaak);
+	//float4 color = ProceduralColor(input.Normal, input.Schaak);
 	//float4 color = NormalColor(input.Normal);
+	float4 color = DiffuseColor(input.Normal);
 
 	return color;
 }
