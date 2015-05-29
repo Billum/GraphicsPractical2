@@ -43,6 +43,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	float3 Normal : TEXCOORD0;
 	float4 Position3D : TEXCOORD1;
+	float4 WorldPosition : TEXCOORD2;
 };
 
 //------------------------------------------ Functions ------------------------------------------
