@@ -7,7 +7,7 @@
 // Top level variables can and have to be set at runtime
 
 // Matrices for 3D perspective projection 
-float4x4 View, Projection, World;
+float4x4 View, Projection, World;//, WorldInverseTranspose;
 float3 Camera;
 
 // Material parameters
@@ -18,7 +18,6 @@ float3 LightSourcePosition;
 float4 SpecularColor;
 float SpecularIntensity;
 float SpecularPower;
-
 
 //---------------------------------- Input / Output structures ----------------------------------
 
@@ -106,10 +105,11 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 	// Do the matrix multiplications for perspective projection and the world transform
 	float4 worldPosition = mul(input.Position3D, World);
-    float4 viewPosition  = mul(worldPosition, View);
+	float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
 	output.Normal	 = input.Normal;
 	output.Position3D = input.Position3D;
+	output.WorldPosition = worldPosition;
 
 	return output;
 }
