@@ -7,7 +7,21 @@
 // Top level variables can and have to be set at runtime
 
 // Matrices for 3D perspective projection 
+<<<<<<< HEAD
 float4x4 View, Projection, World, WorldInverseTranspose;
+=======
+float4x4 View, Projection, World;
+float3 Camera;
+
+// Material parameters
+float4 AmbientColor;
+float AmbientIntensity;
+float3 LightSourcePosition;
+float4 SpecularColor;
+float SpecularIntensity;
+float SpecularPower;
+
+>>>>>>> c11a98f69e01ed6befa6da7d55a65e2f29792c3a
 
 //---------------------------------- Input / Output structures ----------------------------------
 
@@ -33,6 +47,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	float3 Normal : TEXCOORD0;
 	float4 Schaak : TEXCOORD1;
+	float3 WorldPosition : TEXCOORD2;
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -68,6 +83,26 @@ float4 DiffuseColor(float3 normal)
 	return dotn * float4(1, 0, 0, 1);
 }
 
+<<<<<<< HEAD
+=======
+float4 PhongShadingColor(float3 normal, float3 worldPosition)
+{
+	float3 lightDirection = normalize (worldPosition - LightSourcePosition);
+
+	float4 diffusedColor = saturate (dot (normal, -lightDirection));
+	float3 halfAngleMod =
+		normalize (normalize (Camera - worldPosition) - lightDirection);
+
+	float specularLighting = pow (saturate (dot (halfAngleMod, normal)), SpecularPower);
+
+	return float4 (
+		   saturate ( (AmbientColor
+				    + diffusedColor
+				    + (SpecularColor * SpecularIntensity * specularLighting))
+				    ));
+}
+
+>>>>>>> c11a98f69e01ed6befa6da7d55a65e2f29792c3a
 //---------------------------------------- Technique: Simple ----------------------------------------
 
 VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
@@ -79,10 +114,16 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	float4 worldPosition = mul(input.Position3D, World);
 	float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
+<<<<<<< HEAD
 	output.Schaak		 = input.Position3D;
 
 	// Calculate normal with topleft 3x3 matrix of the inverse-transposed World Matrix.
 	output.Normal		 = mul(input.Normal, (float3x3) WorldInverseTranspose);
+=======
+	output.Normal	 = input.Normal;
+	output.Schaak = input.Position3D;
+	output.WorldPosition = worldPosition;
+>>>>>>> c11a98f69e01ed6befa6da7d55a65e2f29792c3a
 
 	return output;
 }
@@ -91,7 +132,8 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	//float4 color = ProceduralColor(input.Normal, input.Schaak);
 	//float4 color = NormalColor(input.Normal);
-	float4 color = DiffuseColor(input.Normal);
+	//float4 color = DiffuseColor(input.Normal);
+	float4 color = PhongShadingColor(input.Normal, input.WorldPosition);
 
 	return color;
 }

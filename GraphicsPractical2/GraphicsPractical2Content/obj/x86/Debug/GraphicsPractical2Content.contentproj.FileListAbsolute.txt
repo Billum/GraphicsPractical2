@@ -1,2 +1,3 @@
 \\psf\Home\Desktop\CS\Graphics\p2\GraphicsPractical2\GraphicsPractical2Content\obj\x86\Debug\GraphicsPractical2Content.contentprojResolveAssemblyReference.cache
 C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2Content\obj\x86\Debug\GraphicsPractical2Content.contentprojResolveAssemblyReference.cache
+\\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2Content\obj\x86\Debug\GraphicsPractical2Content.contentprojResolveAssemblyReference.cache
