@@ -7,7 +7,7 @@
 // Top level variables can and have to be set at runtime
 
 // Matrices for 3D perspective projection 
-float4x4 View, Projection, World;
+float4x4 View, Projection, World, WorldInverseTranspose;
 
 //---------------------------------- Input / Output structures ----------------------------------
 
@@ -68,7 +68,6 @@ float4 DiffuseColor(float3 normal)
 	return dotn * float4(1, 0, 0, 1);
 }
 
-
 //---------------------------------------- Technique: Simple ----------------------------------------
 
 VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
@@ -78,10 +77,12 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 	// Do the matrix multiplications for perspective projection and the world transform
 	float4 worldPosition = mul(input.Position3D, World);
-    float4 viewPosition  = mul(worldPosition, View);
+	float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
-	output.Normal	 = input.Normal;
-	output.Schaak = input.Position3D;
+	output.Schaak		 = input.Position3D;
+
+	// Calculate normal with topleft 3x3 matrix of the inverse-transposed World Matrix.
+	output.Normal		 = mul(input.Normal, (float3x3) WorldInverseTranspose);
 
 	return output;
 }
