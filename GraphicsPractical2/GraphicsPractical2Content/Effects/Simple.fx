@@ -8,6 +8,16 @@
 
 // Matrices for 3D perspective projection 
 float4x4 View, Projection, World;
+float3 Camera;
+
+// Material parameters
+float4 AmbientColor;
+float AmbientIntensity;
+float3 LightSourcePosition;
+float4 SpecularColor;
+float SpecularIntensity;
+float SpecularPower;
+
 
 //---------------------------------- Input / Output structures ----------------------------------
 
@@ -33,6 +43,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	float3 Normal : TEXCOORD0;
 	float4 Schaak : TEXCOORD1;
+	float3 WorldPosition : TEXCOORD2;
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -68,6 +79,22 @@ float4 DiffuseColor(float3 normal)
 	return dotn * float4(1, 0, 0, 1);
 }
 
+float4 PhongShadingColor(float3 normal, float3 worldPosition)
+{
+	float3 lightDirection = normalize (worldPosition - LightSourcePosition);
+
+	float4 diffusedColor = saturate (dot (normal, -lightDirection));
+	float3 halfAngleMod =
+		normalize (normalize (Camera - worldPosition) - lightDirection);
+
+	float specularLighting = pow (saturate (dot (halfAngleMod, normal)), SpecularPower);
+
+	return float4 (
+		   saturate ( (AmbientColor
+				    + diffusedColor
+				    + (SpecularColor * SpecularIntensity * specularLighting))
+				    ));
+}
 
 //---------------------------------------- Technique: Simple ----------------------------------------
 
@@ -82,6 +109,7 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	output.Position2D    = mul(viewPosition, Projection);
 	output.Normal	 = input.Normal;
 	output.Schaak = input.Position3D;
+	output.WorldPosition = worldPosition;
 
 	return output;
 }
@@ -90,7 +118,8 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	//float4 color = ProceduralColor(input.Normal, input.Schaak);
 	//float4 color = NormalColor(input.Normal);
-	float4 color = DiffuseColor(input.Normal);
+	//float4 color = DiffuseColor(input.Normal);
+	float4 color = PhongShadingColor(input.Normal, input.WorldPosition);
 
 	return color;
 }

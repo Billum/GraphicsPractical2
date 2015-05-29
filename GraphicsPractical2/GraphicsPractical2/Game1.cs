@@ -55,6 +55,14 @@ namespace GraphicsPractical2
             // Initialize the camera
             this.camera = new Camera(new Vector3(0, 50, 100), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
 
+            // Initialize material properties
+            this.modelMaterial = new Material();
+            modelMaterial.AmbientColor = Color.Red;
+            modelMaterial.AmbientIntensity = 0.2f;
+            modelMaterial.SpecularColor = Color.White;
+            modelMaterial.SpecularIntensity = 25f;
+            modelMaterial.SpecularPower = 2f;
+
             this.IsMouseVisible = true;
 
             base.Initialize();
@@ -124,7 +132,10 @@ namespace GraphicsPractical2
             effect.CurrentTechnique = effect.Techniques["Simple"];
             // Matrices for 3D perspective projection
             this.camera.SetEffectParameters(effect);
+            this.modelMaterial.SetEffectParameters(effect);
             effect.Parameters["World"].SetValue(Matrix.CreateScale(10.0f));
+            effect.Parameters["LightSourcePosition"].SetValue(new Vector3(100, 50, 100));
+            effect.Parameters["Camera"].SetValue(camera.Eye);
             // Draw the model
             mesh.Draw();
 
