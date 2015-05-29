@@ -64,6 +64,7 @@ float4 DiffuseColor(float3 normal)
 	if (dotn < 0) {
 		dotn = 0;
 	}
+	dotn = (dotn + 0.1) / 1.1;
 	return dotn * float4(1, 0, 0, 1);
 }
 
