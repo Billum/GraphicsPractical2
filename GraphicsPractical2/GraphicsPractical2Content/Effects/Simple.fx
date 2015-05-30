@@ -7,7 +7,7 @@
 // Top level variables can and have to be set at runtime
 
 // Matrices for 3D perspective projection 
-float4x4 View, Projection, World;//, WorldInverseTranspose;
+float4x4 View, Projection, World, WorldInverseTranspose;
 float3 Camera;
 
 // Material parameters
@@ -77,12 +77,19 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 		return NormalColor(normal);
 	}
 }
+float3 NonUniformScaling(float3 normal)
+{
+	float3 _normal = normalize(mul(normal, (float3x3) WorldInverseTranspose));
+
+	return _normal;
+}
 
 float4 Diffusement(float3 normal, float3 pos3d)
 {
 	float3 lightDirection = normalize(LightSourcePosition - pos3d);
+	float3 _normal = NonUniformScaling(normal);
 
-	float dotN = dot (normal, lightDirection);
+	float dotN = dot (_normal, lightDirection);
 	if (dotN < 0) {
 		dotN = 0;
 	}
@@ -96,7 +103,8 @@ float4 Specularization(float3 normal, float3 pos3d)
 	float3 lightDirection = LightSourcePosition - pos3d;
 	float3 half = normalize (lightDirection + normalize(Camera - pos3d));
 
-	float intensity = pow (saturate (dot (normal, half)), SpecularPower);
+	float3 _normal = NonUniformScaling(normal);
+	float intensity = pow (saturate (dot (_normal, half)), SpecularPower);
 	return intensity * SpecularColor;
 }
 

@@ -160,6 +160,7 @@ namespace GraphicsPractical2
             this.camera.SetEffectParameters(effect);
             this.modelMaterial.SetEffectParameters(effect);
             effect.Parameters["World"].SetValue(Matrix.CreateScale(10.0f));
+            effect.Parameters["WorldInverseTranspose"].SetValue(Matrix.CreateScale(10.0f));
             effect.Parameters["LightSourcePosition"].SetValue(new Vector3(10, 5, 10));
             effect.Parameters["Camera"].SetValue(camera.Eye);
 
