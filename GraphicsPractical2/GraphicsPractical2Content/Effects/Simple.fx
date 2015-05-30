@@ -80,7 +80,6 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 float3 NonUniformScaling(float3 normal)
 {
 	float3 _normal = normalize(mul(normal, (float3x3) WorldInverseTranspose));
-
 	return _normal;
 }
 
