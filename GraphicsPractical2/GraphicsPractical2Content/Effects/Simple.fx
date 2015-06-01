@@ -19,6 +19,9 @@ float3 LightSourcePosition;
 float4 SpecularColor;
 float SpecularIntensity;
 float SpecularPower;
+bool NormalColoring;
+bool ProceduralColoring;
+bool HasTexture;
 
 sampler TextureSampler
 	= sampler_state { texture = <DiffuseTexture> ;
@@ -61,23 +64,26 @@ struct VertexShaderOutput
 
 float4 NormalColor(float3 normal)
 {
+	// Get color from normal vector
 	return float4(normal.r, normal.g, normal.b, 1);
 }
 
 float4 ProceduralColor(float3 normal, float4 schaak)
 {
+	// Caculate checkerboard pattern using modulo
 	int x = (int)((schaak.x + 21) * 5);
 	int y = (int)((schaak.y + 21) * 5);
-	if ((x % 2 + y % 2) % 2 > 0) {
+	if ((x + y) % 2 > 0) {
 		return NormalColor(-1 * normal);
-	}
-	else {
+	} else {
 		return NormalColor(normal);
 	}
 }
 
 float3 NonUniformScaling(float3 normal)
 {
+	// Recalculate the normal against the world inversed transposed matrix,
+	// to get more accurate lighting.
 	float3 _normal = normalize(mul(normal, (float3x3) WorldInverseTranspose));
 	return _normal;
 }
@@ -89,6 +95,8 @@ float4 Diffusement(float3 normal, float3 pos3d)
 
 	float dotN = dot (_normal, lightDirection);
 	if (dotN < 0) {
+		// Prevents light towards the camera from
+		// being recognized as lighting on the object
 		dotN = 0;
 	}
 
@@ -108,6 +116,10 @@ float4 Specularization(float3 normal, float3 pos3d)
 
 float4 PhongShadingColor(float3 normal, float3 pos3d)
 {
+	// Use a combination of
+	// - ambient
+	// - diffused coloring
+	// - specularization (Blinn-Phong) on top
 	return saturate (  (AmbientColor * AmbientIntensity) // Ambient part
 				     + Diffusement(normal, pos3d)		 // Diffusion
 				     + Specularization(normal, pos3d)	 // Specular part
@@ -133,16 +145,27 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	//float4 color = ProceduralColor(input.Normal, input.Position3D);
-	//float4 color = NormalColor(input.Normal);
+	float4 color;
 
-	//float4 color = Diffusement(input.Normal, input.Position3D);
+	if (NormalColoring) {
+		color = NormalColor(input.Normal);
+	} else if (ProceduralColoring) {
+		color = ProceduralColor(input.Normal, input.Position3D);
+	} else {
+		//
+		// Use Blinn-Phong lighting algorithm
+		color = PhongShadingColor(input.Normal, input.Position3D);
 
-	//float4 color = ( (AmbientColor * AmbientIntensity)
-	//				 + Diffusement(input.Normal, input.Position3D)
-	//			     );
+		//
+		// Uncomment to use diffused light without ambient
+		//color = Diffusement(input.Normal, input.Position3D);
 
-	float4 color = PhongShadingColor(input.Normal, input.Position3D);
+		//
+		// Uncomment to use diffused light with ambient
+		//color = ( (AmbientColor * AmbientIntensity)
+		//		  + Diffusement(input.Normal, input.Position3D)
+		//		  );
+	}
 
 	return color;
 }
@@ -169,14 +192,19 @@ VertexShaderOutput SurfaceVertexShader(VertexShaderInput input)
 	output.Position2D    = mul(viewPosition, Projection);
 	output.Normal		 = input.Normal;
 	output.Position3D	 = input.Position3D;
-	output.TexCoords	 = input.TexCoords;
+	output.TexCoords	 = input.TexCoords;  // Pass on texture coordinates
 
 	return output;
 }
 
 float4 SurfacePixelShader(VertexShaderOutput input) : COLOR0
 {
-	return tex2D (TextureSampler, input.TexCoords);
+	if (HasTexture) {
+		// Map texture pixel to surface
+		return tex2D (TextureSampler, input.TexCoords);
+	} else {
+		return float4 (1, 1, 1, 0);
+	}
 }
 
 technique Surface

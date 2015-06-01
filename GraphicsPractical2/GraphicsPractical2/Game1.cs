@@ -65,6 +65,9 @@ namespace GraphicsPractical2
             modelMaterial.SpecularIntensity = 2f;
             modelMaterial.SpecularPower = 25f;
 
+            modelMaterial.NormalColoring = false;       // Set to true to use normal coloring!
+            modelMaterial.ProceduralColoring = false;   // Set to true to get the checkerboard pattern
+
             this.IsMouseVisible = true;
 
             base.Initialize();
