@@ -68,14 +68,14 @@ float4 NormalColor(float3 normal)
 // Implement the Procedural texturing assignment here
 float4 ProceduralColor(float3 normal, float4 schaak)
 {
-	int x = (int)((schaak.x + 21) * 5);
-	int y = (int)((schaak.y + 21) * 5);
-	if ((x % 2 + y % 2) % 2 > 0) {
+	float width = 0.05;
+
+	if (sin(schaak.x / width) > 0)
+		return (sin(schaak.y / width) > 0) ? NormalColor(normal) : NormalColor(-1 * normal);
+	else if (sin(schaak.y / width) < 0)
+		return (sin(schaak.x / width) < 0) ? NormalColor(normal) : NormalColor(-1 * normal);
+	else
 		return NormalColor(-1 * normal);
-	}
-	else {
-		return NormalColor(normal);
-	}
 }
 float3 NonUniformScaling(float3 normal)
 {
@@ -134,7 +134,7 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	//float4 color = ProceduralColor(input.Normal, input.Position3D);
+	float4 color = ProceduralColor(input.Normal, input.Position3D);
 	//float4 color = NormalColor(input.Normal);
 
 	//float4 color = Diffusement(input.Normal, input.Position3D);
@@ -143,7 +143,7 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 	//				 + Diffusement(input.Normal, input.Position3D)
 	//			     );
 
-	float4 color = PhongShadingColor(input.Normal, input.Position3D);
+	//float4 color = PhongShadingColor(input.Normal, input.Position3D);
 
 	return color;
 }
