@@ -65,6 +65,9 @@ namespace GraphicsPractical2
             modelMaterial.SpecularIntensity = 2f;
             modelMaterial.SpecularPower = 25f;
 
+            modelMaterial.NormalColoring = false;       // Set to true to use normal coloring!
+            modelMaterial.ProceduralColoring = false;   // Set to true to get the checkerboard pattern
+
             this.IsMouseVisible = true;
 
             base.Initialize();
@@ -161,7 +164,7 @@ namespace GraphicsPractical2
             this.modelMaterial.SetEffectParameters(effect);
             effect.Parameters["World"].SetValue(Matrix.CreateScale(10.0f));
             effect.Parameters["WorldInverseTranspose"].SetValue(Matrix.CreateScale(10.0f));
-            effect.Parameters["LightSourcePosition"].SetValue(new Vector3(50, 50, 50));
+            effect.Parameters["LightSourcePosition"].SetValue(new Vector3(50, 20, 50));
             effect.Parameters["Camera"].SetValue(camera.Eye);
 
             // Draw the model
