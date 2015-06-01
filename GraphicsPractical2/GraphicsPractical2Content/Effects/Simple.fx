@@ -70,7 +70,6 @@ float4 NormalColor(float3 normal)
 
 float4 ProceduralColor(float3 normal, float4 schaak)
 {
-<<<<<<< HEAD
 	float width = 0.05;
 
 	if (sin(schaak.x / width) > 0)
@@ -79,16 +78,6 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 		return (sin(schaak.x / width) < 0) ? NormalColor(normal) : NormalColor(-1 * normal);
 	else
 		return NormalColor(-1 * normal);
-=======
-	// Caculate checkerboard pattern using modulo
-	int x = (int)((schaak.x + 21) * 5);
-	int y = (int)((schaak.y + 21) * 5);
-	if ((x + y) % 2 > 0) {
-		return NormalColor(-1 * normal);
-	} else {
-		return NormalColor(normal);
-	}
->>>>>>> 19d81a65b7f23bafe830672470064fe71c6712eb
 }
 
 float3 NonUniformScaling(float3 normal)
@@ -156,7 +145,6 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-<<<<<<< HEAD
 	float4 color = ProceduralColor(input.Normal, input.Position3D);
 	//float4 color = NormalColor(input.Normal);
 
@@ -167,29 +155,28 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 	//			     );
 
 	//float4 color = PhongShadingColor(input.Normal, input.Position3D);
-=======
-	float4 color;
 
-	if (NormalColoring) {
-		color = NormalColor(input.Normal);
-	} else if (ProceduralColoring) {
-		color = ProceduralColor(input.Normal, input.Position3D);
-	} else {
-		//
-		// Use Blinn-Phong lighting algorithm
-		color = PhongShadingColor(input.Normal, input.Position3D);
+	//float4 color;
 
-		//
-		// Uncomment to use diffused light without ambient
-		//color = Diffusement(input.Normal, input.Position3D);
+	//if (NormalColoring) {
+	//	color = NormalColor(input.Normal);
+	//} else if (ProceduralColoring) {
+	//	color = ProceduralColor(input.Normal, input.Position3D);
+	//} else {
+	//	//
+	//	// Use Blinn-Phong lighting algorithm
+	//	color = PhongShadingColor(input.Normal, input.Position3D);
 
-		//
-		// Uncomment to use diffused light with ambient
-		//color = ( (AmbientColor * AmbientIntensity)
-		//		  + Diffusement(input.Normal, input.Position3D)
-		//		  );
-	}
->>>>>>> 19d81a65b7f23bafe830672470064fe71c6712eb
+	//	//
+	//	// Uncomment to use diffused light without ambient
+	//	//color = Diffusement(input.Normal, input.Position3D);
+
+	//	//
+	//	// Uncomment to use diffused light with ambient
+	//	//color = ( (AmbientColor * AmbientIntensity)
+	//	//		  + Diffusement(input.Normal, input.Position3D)
+	//	//		  );
+	//}
 
 	return color;
 }
