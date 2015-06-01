@@ -59,13 +59,11 @@ struct VertexShaderOutput
 
 //------------------------------------------ Functions ------------------------------------------
 
-// Implement the Coloring using normals assignment here
 float4 NormalColor(float3 normal)
 {
 	return float4(normal.r, normal.g, normal.b, 1);
 }
 
-// Implement the Procedural texturing assignment here
 float4 ProceduralColor(float3 normal, float4 schaak)
 {
 	int x = (int)((schaak.x + 21) * 5);
@@ -77,6 +75,7 @@ float4 ProceduralColor(float3 normal, float4 schaak)
 		return NormalColor(normal);
 	}
 }
+
 float3 NonUniformScaling(float3 normal)
 {
 	float3 _normal = normalize(mul(normal, (float3x3) WorldInverseTranspose));
