@@ -34,7 +34,6 @@ C:\Users\Tomas\Documents\Visual Studio 2013\Projects\GraphicsPractical2\Graphics
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\GraphicsPractical2.exe
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\GraphicsPractical2.pdb
-\\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.exe
 \\psf\Home\Documents\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.pdb

@@ -145,38 +145,27 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	float4 color = ProceduralColor(input.Normal, input.Position3D);
-	//float4 color = NormalColor(input.Normal);
+	float4 color;
 
-	//float4 color = Diffusement(input.Normal, input.Position3D);
+	if (NormalColoring) {
+		color = NormalColor(input.Normal);
+	} else if (ProceduralColoring) {
+		color = ProceduralColor(input.Normal, input.Position3D);
+	} else {
+		//
+		// Use Blinn-Phong lighting algorithm
+		color = PhongShadingColor(input.Normal, input.Position3D);
 
-	//float4 color = ( (AmbientColor * AmbientIntensity)
-	//				 + Diffusement(input.Normal, input.Position3D)
-	//			     );
+		//
+		// Uncomment to use diffused light without ambient
+		//color = Diffusement(input.Normal, input.Position3D);
 
-	//float4 color = PhongShadingColor(input.Normal, input.Position3D);
-
-	//float4 color;
-
-	//if (NormalColoring) {
-	//	color = NormalColor(input.Normal);
-	//} else if (ProceduralColoring) {
-	//	color = ProceduralColor(input.Normal, input.Position3D);
-	//} else {
-	//	//
-	//	// Use Blinn-Phong lighting algorithm
-	//	color = PhongShadingColor(input.Normal, input.Position3D);
-
-	//	//
-	//	// Uncomment to use diffused light without ambient
-	//	//color = Diffusement(input.Normal, input.Position3D);
-
-	//	//
-	//	// Uncomment to use diffused light with ambient
-	//	//color = ( (AmbientColor * AmbientIntensity)
-	//	//		  + Diffusement(input.Normal, input.Position3D)
-	//	//		  );
-	//}
+		//
+		// Uncomment to use diffused light with ambient
+		//color = ( (AmbientColor * AmbientIntensity)
+		//		  + Diffusement(input.Normal, input.Position3D)
+		//		  );
+	}
 
 	return color;
 }
